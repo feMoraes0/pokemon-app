@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        bottomAppBarColor: Colors.blue,
+        fontFamily: 'Avenir',
       ),
       routes: {
         '/home': (context) => Home(),
