@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pokemon_app/components/gradient_background.dart';
 import 'package:pokemon_app/utilities/constants.dart';
 
@@ -13,8 +14,10 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double paddingBottom = MediaQuery.of(context).padding.bottom;
+    int currentTab = this.tabController.index;
     return GradientBackground(
       height: 72.0 + paddingBottom,
+      marginTop: true,
       child: BottomAppBar(
         color: Colors.transparent,
         elevation: 0.0,
@@ -27,15 +30,24 @@ class CustomNavigationBar extends StatelessWidget {
           unselectedLabelStyle: TextStyle(color: kLightGreyTab),
           tabs: <Widget>[
             Tab(
-              icon: Icon(Icons.category),
+              icon: SvgPicture.asset(
+                'icons/pokemon-icon.svg',
+                color: (currentTab == 0) ? kBlack : kBlackOpacity,
+              ),
               text: 'Pokemons',
             ),
             Tab(
-              icon: Icon(Icons.category),
+              icon: SvgPicture.asset(
+                'icons/moves-icon.svg',
+                color: (currentTab == 1) ? kBlack : kBlackOpacity,
+              ),
               text: 'Moves',
             ),
             Tab(
-              icon: Icon(Icons.category),
+              icon: SvgPicture.asset(
+                'icons/itens-icon.svg',
+                color: (currentTab == 2) ? kBlack : kBlackOpacity,
+              ),
               text: 'Itens',
             ),
           ],

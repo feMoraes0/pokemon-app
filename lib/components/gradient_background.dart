@@ -40,7 +40,13 @@ class GradientBackground extends StatelessWidget {
             ),
             color: Color.fromRGBO(250, 250, 250, 0.6),
           ),
-          this.child ?? Container(),
+          Container(
+            padding: EdgeInsets.only(
+              bottom: (this.marginBottom ?? false) ? 10.0 : 0.0,
+              top: (this.marginTop ?? false) ? 10.0 : 0.0,
+            ),
+            child: this.child,
+          )
         ],
       ),
     );

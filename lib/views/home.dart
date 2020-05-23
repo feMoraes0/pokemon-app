@@ -10,11 +10,32 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController _tabController;
+  String _titleAppBar;
 
   @override
   void initState() {
     this._tabController = TabController(length: 3, vsync: this);
+    this._tabController.addListener(() => this.handleTabChange());
+    this._titleAppBar = this.getTitleLabel(this._tabController.index);
     super.initState();
+  }
+
+  void handleTabChange() {
+    if (this._tabController.indexIsChanging) {
+      print(this._tabController.index);
+      setState(() {
+        this._titleAppBar = this.getTitleLabel(this._tabController.index);
+      });
+    }
+  }
+
+  String getTitleLabel(int pageIndex) {
+    if (pageIndex == 0) {
+      return 'Pokemons';
+    } else if (pageIndex == 1) {
+      return 'Moves';
+    }
+    return 'Itens';
   }
 
   @override
@@ -26,7 +47,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   AppBar appBar({Size screenSize}) {
     return AppBar(
       title: Text(
-        'Pokemons',
+        this._titleAppBar,
         style: TextStyle(
           color: kBlack,
         ),
@@ -67,7 +88,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
           ),
         ),
       ),
-      flexibleSpace: GradientBackground(),
+      flexibleSpace: GradientBackground(marginBottom: true),
     );
   }
 
@@ -78,6 +99,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
       appBar: this.appBar(screenSize: screen),
       body: TabBarView(
         controller: this._tabController,
+        physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Container(
             color: Colors.red,
