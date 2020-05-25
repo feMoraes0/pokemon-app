@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/custom_navigation_bar.dart';
 import 'package:pokemon_app/components/gradient_background.dart';
 import 'package:pokemon_app/utilities/constants.dart';
+import 'package:pokemon_app/views/tabs/items.dart';
+import 'package:pokemon_app/views/tabs/moves.dart';
 import 'package:pokemon_app/views/tabs/pokemons.dart';
 
 class Home extends StatefulWidget {
@@ -105,12 +107,8 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
           Pokemons(),
-          Container(
-            color: Colors.grey,
-          ),
-          Container(
-            color: Colors.yellow,
-          ),
+          Moves(),
+          Items(),
         ],
       ),
       bottomNavigationBar: CustomNavigationBar(

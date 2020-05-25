@@ -2,59 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 
-const kTotalPokemons = 964;
+const kTotalMoves = 746;
 
-class Pokemons extends StatefulWidget {
+class Moves extends StatefulWidget {
   @override
-  _PokemonsState createState() => _PokemonsState();
+  _MovesState createState() => _MovesState();
 }
 
-class _PokemonsState extends State<Pokemons> {
-  List _pokemons;
+class _MovesState extends State<Moves> {
+  List _moves;
 
   @override
   void initState() {
     super.initState();
-    this._pokemons = [];
-    this.getPokemonData();
+    this._moves = [];
+    this.getMovesData();
   }
 
-  void getPokemonData() async {
+  void getMovesData() async {
     NetWorkHelper network = NetWorkHelper(
-      url: 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=$kTotalPokemons',
+      url: 'https://pokeapi.co/api/v2/move?offset=0&limit=$kTotalMoves',
     );
     dynamic data = await network.getData();
 
     if (mounted) {
       setState(() {
-        this._pokemons = data['results'];
+        this._moves = data['results'];
       });
     }
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return (this._pokemons.length == 0)
+    return (this._moves.length == 0)
         ? Loading()
         : ListView.builder(
-            itemCount: this._pokemons.length,
+            itemCount: this._moves.length,
             itemBuilder: (context, index) {
-              Map pokemon = this._pokemons[index];
+              Map move = this._moves[index];
               return Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Image.network(
-                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
-                    ),
                     title: Text(
-                      pokemon['name'],
+                      move['name'],
                       style: TextStyle(),
                     ),
-                    subtitle: Text(
-                      '#${index + 1}',
-                    ),
                     onTap: () {
-                      print(pokemon['url']);
+                      print(move['url']);
                     },
                   ),
                   Padding(
