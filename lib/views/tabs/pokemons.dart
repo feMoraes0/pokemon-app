@@ -14,26 +14,24 @@ class _PokemonsState extends State<Pokemons> {
   @override
   void initState() {
     this._pokemons = [];
+    this._totalPokemons = 1;
     this.getPokemonData();
     super.initState();
   }
 
   void getPokemonData() async {
     NetWorkHelper network = NetWorkHelper(
-      url:
-          'https://pokeapi.co/api/v2/pokemon?offset=${this._pokemons.length}&limit=20',
+      url: 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=964',
     );
     dynamic data = await network.getData();
 
     setState(() {
-      this._pokemons = data['results'];
-      this._totalPokemons = data['count'];
+      this._pokemons.addAll(data['results']);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(this._pokemons.length);
     return (this._pokemons.length == 0)
         ? Loading()
         : ListView.builder(
