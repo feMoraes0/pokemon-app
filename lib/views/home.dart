@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/custom_navigation_bar.dart';
 import 'package:pokemon_app/components/gradient_background.dart';
 import 'package:pokemon_app/utilities/constants.dart';
+import 'package:pokemon_app/views/tabs/pokemons.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -11,12 +12,14 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController _tabController;
   String _titleAppBar;
+  List pokemons;
 
   @override
   void initState() {
     this._tabController = TabController(length: 3, vsync: this);
     this._tabController.addListener(() => this.handleTabChange());
     this._titleAppBar = this.getTitleLabel(this._tabController.index);
+    this.pokemons = [];
     super.initState();
   }
 
@@ -101,9 +104,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
         controller: this._tabController,
         physics: NeverScrollableScrollPhysics(),
         children: <Widget>[
-          Container(
-            color: Colors.red,
-          ),
+          Pokemons(),
           Container(
             color: Colors.grey,
           ),
