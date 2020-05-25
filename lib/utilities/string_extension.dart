@@ -4,9 +4,9 @@ extension StringExtension on String {
   }
 
   String camelCase() {
-    List splitedString = this.split('-');
+    List splittedString = this.split('-');
     String result = '';
-    for (String splitString in splitedString) {
+    for (String splitString in splittedString) {
       result += splitString.capitalize();
       result += ' ';
     }

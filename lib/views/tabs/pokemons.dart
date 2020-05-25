@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 import 'package:pokemon_app/utilities/string_extension.dart';
+import 'package:pokemon_app/utilities/int_extension.dart';
 import 'package:pokemon_app/utilities/constants.dart' as Constants;
 
 const kTotalPokemons = 964;
@@ -54,7 +55,7 @@ class _PokemonsState extends State<Pokemons> {
                       style: Constants.kTitleCardStyle,
                     ),
                     subtitle: Text(
-                      '#${index + 1}',
+                      '#${(index + 1).toStringWithDigits(3)}',
                       style: Constants.kSubtitleCardStyle,
                     ),
                     onTap: () {
