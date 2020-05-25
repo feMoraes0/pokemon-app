@@ -48,7 +48,7 @@ class CustomNavigationBar extends StatelessWidget {
                 'icons/itens-icon.svg',
                 color: (currentTab == 2) ? kBlack : kBlackOpacity,
               ),
-              text: 'Itens',
+              text: 'Items',
             ),
           ],
         ),

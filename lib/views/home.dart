@@ -40,7 +40,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     } else if (pageIndex == 1) {
       return 'Moves';
     }
-    return 'Itens';
+    return 'Items';
   }
 
   @override
