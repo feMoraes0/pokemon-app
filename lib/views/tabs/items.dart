@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
+import 'package:pokemon_app/utilities/string_extension.dart';
 
 const kTotalItems = 954;
 
@@ -47,7 +48,7 @@ class _ItemsState extends State<Items> {
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item['name']}.png',
                     ),
                     title: Text(
-                      item['name'],
+                      '${item['name']}'.camelCase(),
                       style: TextStyle(),
                     ),
                     onTap: () {

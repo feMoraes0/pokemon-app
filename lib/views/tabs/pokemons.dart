@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
+import 'package:pokemon_app/utilities/string_extension.dart';
 
 const kTotalPokemons = 964;
 
@@ -16,6 +17,7 @@ class _PokemonsState extends State<Pokemons> {
   void initState() {
     super.initState();
     this._pokemons = [];
+
     this.getPokemonData();
   }
 
@@ -47,7 +49,7 @@ class _PokemonsState extends State<Pokemons> {
                       'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
                     ),
                     title: Text(
-                      pokemon['name'],
+                      '${pokemon['name']}'.camelCase(),
                       style: TextStyle(),
                     ),
                     subtitle: Text(
