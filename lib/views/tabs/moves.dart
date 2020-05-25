@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 import 'package:pokemon_app/utilities/string_extension.dart';
+import 'package:pokemon_app/utilities/constants.dart' as Constants;
 
 const kTotalMoves = 746;
 
@@ -51,7 +52,7 @@ class _MovesState extends State<Moves> {
                   ListTile(
                     title: Text(
                       '${move['name']}'.camelCase(),
-                      style: TextStyle(),
+                      style: Constants.kTitleCardStyle,
                     ),
                     onTap: () {
                       print(move['url']);

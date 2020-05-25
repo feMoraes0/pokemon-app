@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 import 'package:pokemon_app/utilities/string_extension.dart';
+import 'package:pokemon_app/utilities/constants.dart' as Constants;
 
 const kTotalItems = 954;
 
@@ -49,7 +50,7 @@ class _ItemsState extends State<Items> {
                     ),
                     title: Text(
                       '${item['name']}'.camelCase(),
-                      style: TextStyle(),
+                      style: Constants.kTitleCardStyle,
                     ),
                     onTap: () {
                       print(item['url']);
