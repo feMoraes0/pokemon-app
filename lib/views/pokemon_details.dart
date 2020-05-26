@@ -17,51 +17,73 @@ class _PokemonDetailsState extends State<PokemonDetails> {
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
-    double paddingTop = MediaQuery.of(context).padding.top;
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverAppBar(
-          floating: true,
-          excludeHeaderSemantics: false,
-          backgroundColor: Constants.kLightBlue,
-          elevation: 0.0,
-          centerTitle: true,
-          title: Text(
-            'Hello',
-            style: TextStyle(
-              fontSize: 24.0,
+    return Scaffold(
+      backgroundColor: Constants.kLightBlue,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            height: 214.0,
+            child: Image.network(
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
+              fit: BoxFit.fitHeight,
             ),
           ),
-          expandedHeight: 240.0 + paddingTop,
-          pinned: true,
-          flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              height: 240.0 + paddingTop,
-              width: screen.width,
-              child: Image.network(
-                'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-                fit: BoxFit.fitHeight,
+          Container(
+            height: 300.0,
+            padding: const EdgeInsets.fromLTRB(
+              20.0,
+              40.0,
+              20.0,
+              0.0,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(48.0),
+                topRight: Radius.circular(48.0),
               ),
             ),
+            child: Column(
+              children: <Widget>[
+                Text(
+                  'Squirtle',
+                  style: TextStyle(
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.normal,
+                    color: Constants.kDarkGrey,
+                  ),
+                ),
+                SizedBox(height: 10.0),
+                Image.asset(
+                  'assets/tag-types/Water@3x.png',
+                  width: screen.width * 0.32,
+                ),
+                SizedBox(height: 10.0),
+
+                /// STATS
+
+                Text(
+                  'Abilities',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF559EDF),
+                  ),
+                ),
+
+                /// Sprites
+
+                ///
+              ],
+            ),
           ),
-        ),
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Container(
-              height: 300.0,
-              color: Colors.red,
-            ),
-            Container(
-              height: 300.0,
-              color: Colors.red,
-            ),
-            Container(
-              height: 300.0,
-              color: Colors.red,
-            ),
-          ]),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
