@@ -6,6 +6,8 @@ const kBlack = Color(0xFF000000);
 const kBlackOpacity = Color.fromRGBO(0, 0, 0, 0.3);
 const kLightGreyTab = Color.fromRGBO(0, 0, 0, 0.298);
 const kLightGrey = Color(0xFFA4A4A4);
+const kBlue = Color(0xFF559EDF);
+const kLightBlue = Color(0xFF69B9E3);
 
 /// TextStyle
 const kTitleCardStyle = TextStyle(

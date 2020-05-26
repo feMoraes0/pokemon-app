@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/components/loading.dart';
+import 'package:pokemon_app/views/pokemon_details.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 import 'package:pokemon_app/utilities/string_extension.dart';
 import 'package:pokemon_app/utilities/int_extension.dart';
@@ -59,7 +60,12 @@ class _PokemonsState extends State<Pokemons> {
                       style: Constants.kSubtitleCardStyle,
                     ),
                     onTap: () {
-                      print(pokemon['url']);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return PokemonDetails(
+                          url: pokemon['url'],
+                        );
+                      }));
                     },
                   ),
                   Padding(
