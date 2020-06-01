@@ -1,11 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/views/home.dart';
+import 'package:pokemon_app/views/pokemon_details.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  dynamic generateNamedRoutes(RouteSettings settings) {
+    /**
+     *  Route Name: /home
+     */
+    if (settings.name == Home.routeName) {
+      return MaterialPageRoute(builder: (context) {
+        return Home();
+      });
+    }
+
+    /**
+     *  Route Name: /pokemons/details
+     */
+    if (settings.name == PokemonDetails.routeName) {
+      final Map args = settings.arguments;
+      return MaterialPageRoute(builder: (context) {
+        return PokemonDetails(
+          url: args['url'],
+        );
+      });
+    }
+
+    return null;
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -14,9 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         fontFamily: 'Avenir',
       ),
-      routes: {
-        '/home': (context) => Home(),
-      },
+      onGenerateRoute: (settings) => this.generateNamedRoutes(settings),
       initialRoute: '/home',
     );
   }

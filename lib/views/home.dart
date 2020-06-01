@@ -7,6 +7,8 @@ import 'package:pokemon_app/views/tabs/moves.dart';
 import 'package:pokemon_app/views/tabs/pokemons.dart';
 
 class Home extends StatefulWidget {
+  static const String routeName = '/home';
+
   @override
   _HomeState createState() => _HomeState();
 }

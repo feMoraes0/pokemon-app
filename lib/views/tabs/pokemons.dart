@@ -60,12 +60,13 @@ class _PokemonsState extends State<Pokemons> {
                       style: Constants.kSubtitleCardStyle,
                     ),
                     onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return PokemonDetails(
-                          url: pokemon['url'],
-                        );
-                      }));
+                      Navigator.pushNamed(
+                        context,
+                        PokemonDetails.routeName,
+                        arguments: {
+                          'url': pokemon['url'],
+                        },
+                      );
                     },
                   ),
                   Padding(
