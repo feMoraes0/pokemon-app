@@ -24,7 +24,8 @@ class MyApp extends StatelessWidget {
       final Map args = settings.arguments;
       return MaterialPageRoute(builder: (context) {
         return PokemonDetails(
-          url: args['url'],
+          id: args['id'],
+          name: args['name'],
         );
       });
     }

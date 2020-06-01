@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_app/components/loading.dart';
+import 'package:pokemon_app/services/network_helper.dart';
+import 'package:pokemon_app/utilities/string_extension.dart';
 import 'package:pokemon_app/utilities/constants.dart' as Constants;
 
 class PokemonDetails extends StatefulWidget {
   static const String routeName = '/pokemon/details';
 
-  final String url;
+  final int id;
+  final String name;
 
   const PokemonDetails({
     Key key,
-    this.url,
+    this.id,
+    this.name,
   }) : super(key: key);
 
   @override
@@ -17,13 +22,23 @@ class PokemonDetails extends StatefulWidget {
 
 class _PokemonDetailsState extends State<PokemonDetails> {
   ScrollController _scrollController;
-  String _url;
+  int _id;
+  String _name;
 
   @override
   void initState() {
     this._scrollController = ScrollController();
-    this._url = widget.url;
+    this._id = widget.id;
+    this._name = widget.name;
     super.initState();
+  }
+
+  Future<Map> getData() async {
+    NetWorkHelper netWorkHelper = NetWorkHelper(
+      url: '${Constants.kPokemonImageURL}${this._id}.png',
+    );
+    dynamic response = await netWorkHelper.getData();
+    return response;
   }
 
   @override
@@ -50,68 +65,78 @@ class _PokemonDetailsState extends State<PokemonDetails> {
           controller: this._scrollController,
           child: Stack(
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(top: 90.0),
-                height: bodyHeight,
-                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(48.0),
-                    topRight: Radius.circular(48.0),
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      'Squirtle',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 40.0,
-                        fontWeight: FontWeight.normal,
-                        color: Constants.kDarkGrey,
+              FutureBuilder(
+                future: this.getData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Loading();
+                  }
+                  print(snapshot.data);
+                  return Container(
+                    margin: const EdgeInsets.only(top: 135.0),
+                    height: bodyHeight,
+                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
                       ),
                     ),
-                    SizedBox(height: 10.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
-                        Image.asset(
-                          'assets/tag-types/Water@3x.png',
-                          height: 40.0,
+                        Text(
+                          '${this._name}'.camelCase(),
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 40.0,
+                            fontWeight: FontWeight.normal,
+                            color: Constants.kDarkGrey,
+                          ),
+                        ),
+                        SizedBox(height: 10.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Image.asset(
+                              'assets/tag-types/Water@3x.png',
+                              height: 40.0,
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 10.0),
+
+                        /// STATS
+
+                        Text(
+                          'Abilities',
+                          textAlign: TextAlign.start,
+                          style: Constants.kDetailsSectionTextStyle,
+                        ),
+
+                        Text(
+                          'Sprites',
+                          textAlign: TextAlign.start,
+                          style: Constants.kDetailsSectionTextStyle,
                         ),
                       ],
                     ),
-                    SizedBox(height: 10.0),
-
-                    /// STATS
-
-                    Text(
-                      'Abilities',
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500,
-                        color: Color(0xFF559EDF),
-                      ),
-                    ),
-
-                    /// Sprites
-
-                    ///
-                  ],
-                ),
+                  );
+                },
               ),
               Positioned(
-                top: 0,
+                top: -20,
                 left: screen.width * 0.10,
-                child: Container(
-                  width: screen.width * 0.8,
-                  height: 120.0,
-                  child: Image.network(
-                    'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png',
-                    fit: BoxFit.cover,
+                child: Hero(
+                  tag: 'imageHero${this._id}',
+                  child: Container(
+                    width: screen.width * 0.8,
+                    height: 220.0,
+                    child: Image.network(
+                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this._id}.png',
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
                 ),
               ),

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// URLs
+const kPokemonImageURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+
 /// Colors
 const kDarkGrey = Color(0xFF4F4F4F);
 const kBlack = Color(0xFF000000);
@@ -19,4 +22,9 @@ const kSubtitleCardStyle = TextStyle(
   fontSize: 15.0,
   fontWeight: FontWeight.normal,
   color: kLightGrey,
+);
+const kDetailsSectionTextStyle = TextStyle(
+  fontSize: 20.0,
+  fontWeight: FontWeight.w500,
+  color: kBlue,
 );

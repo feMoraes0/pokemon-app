@@ -48,8 +48,11 @@ class _PokemonsState extends State<Pokemons> {
               return Column(
                 children: <Widget>[
                   ListTile(
-                    leading: Image.network(
-                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png',
+                    leading: Hero(
+                      tag: 'imageHero${index + 1}',
+                      child: Image.network(
+                        '${Constants.kPokemonImageURL}${index + 1}.png',
+                      ),
                     ),
                     title: Text(
                       '${pokemon['name']}'.camelCase(),
@@ -64,7 +67,8 @@ class _PokemonsState extends State<Pokemons> {
                         context,
                         PokemonDetails.routeName,
                         arguments: {
-                          'url': pokemon['url'],
+                          'id': index + 1,
+                          'name': pokemon['name'],
                         },
                       );
                     },
