@@ -75,8 +75,13 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                       child: Loading(),
                     );
                   }
+
+                  ///
                   print(snapshot);
                   List abilities = snapshot.data['abilities'];
+                  Map sprites = snapshot.data['sprites'];
+
+                  ///
                   return Container(
                     margin: const EdgeInsets.only(top: 135.0),
                     height: bodyHeight,
@@ -111,12 +116,9 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           ],
                         ),
                         SizedBox(height: 10.0),
-
-                        /// STATS
-
                         Text(
                           'Abilities',
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: Constants.kDetailsSectionTextStyle,
                         ),
                         SizedBox(height: 10.0),
@@ -159,8 +161,33 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                         SizedBox(height: 10.0),
                         Text(
                           'Sprites',
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.center,
                           style: Constants.kDetailsSectionTextStyle,
+                        ),
+                        SizedBox(
+                          height: 170.0,
+                          width: screen.width,
+                          child: GridView(
+                            children: <Widget>[
+                              Container(
+                                child: Image.network(
+                                  sprites['front_default'],
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              Container(
+                                child: Image.network(
+                                  sprites['front_shiny'],
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ],
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10.0,
+                            ),
+                          ),
                         ),
                       ],
                     ),
