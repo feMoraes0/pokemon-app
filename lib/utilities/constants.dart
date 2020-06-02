@@ -33,7 +33,7 @@ const kTypeImageConverter = {
   'dragon': 'assets/tag-types/Dragon@3x.png',
   'electric': 'assets/tag-types/Electric@3x.png',
   'fairy': 'assets/tag-types/Fairy@3x.png',
-  'fight': 'assets/tag-types/Fight@3x.png',
+  'fighting': 'assets/tag-types/Fight@3x.png',
   'fire': 'assets/tag-types/Fire@3x.png',
   'flying': 'assets/tag-types/Flying@3x.png',
   'ghost': 'assets/tag-types/Ghost@3x.png',
@@ -42,6 +42,26 @@ const kTypeImageConverter = {
   'psychic': 'assets/tag-types/Psychic@3x.png',
   'rock': 'assets/tag-types/Rock@3x.png',
   'steel': 'assets/tag-types/Steel@3x.png',
+};
+const kTypeColorConverter = {
+  'bug': Color(0xFF9DC130),
+  'dark': Color(0xFF5F606D),
+  'dragon': Color(0xFF0773C7),
+  'electric': Color(0xFFEDD53F),
+  'fairy': Color(0xFFEF97E6),
+  'fighting': Color(0xFFD94256),
+  'fire': Color(0xFFF8A54F),
+  'flying': Color(0xFF9BB4E8),
+  'ghost': Color(0xFF6970C5),
+  'grass': Color(0xFF5DBE62),
+  'ground': Color(0xFFD78555),
+  'ice': Color(0xFF7ED4C9),
+  'normal': Color(0xFF9A9DA1),
+  'psychic': Color(0xFFF87C7A),
+  'poison': Color(0xFFB563CE),
+  'rock': Color(0xFFCEC18C),
+  'steel': Color(0xFF5596A4),
+  'water': Color(0xFF559EDF),
 };
 
 /// TextStyle

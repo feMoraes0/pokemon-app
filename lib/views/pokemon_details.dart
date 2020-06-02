@@ -64,7 +64,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     return response;
   }
 
-  List<Row> buildStats(List stats) {
+  List<Row> buildStats(List stats, Color barColor) {
     List<Row> response = [];
 
     stats.reversed.forEach((stat) {
@@ -76,7 +76,9 @@ class _PokemonDetailsState extends State<PokemonDetails> {
             Text(
               Constants.kStatusNameConverter[stat['stat']['name']]
                   .toUpperCase(),
-              style: Constants.kStatusTitleTextStyle,
+              style: Constants.kStatusTitleTextStyle.copyWith(
+                color: barColor,
+              ),
             ),
             SizedBox(width: 5.0),
             Text(
@@ -86,6 +88,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
             SizedBox(width: 5.0),
             ChartBar(
               baseStats: stat['base_stat'],
+              barColor: barColor,
             ),
           ],
         ),
@@ -100,49 +103,51 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     double paddingTop = MediaQuery.of(context).padding.top;
     double appbar = AppBar().preferredSize.height;
     double bodyHeight = screen.height - appbar - paddingTop;
-    return Scaffold(
-      backgroundColor: Constants.kLightBlue,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: SafeArea(
-        bottom: false,
-        child: SingleChildScrollView(
-          controller: this._scrollController,
-          child: Stack(
-            children: <Widget>[
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  minHeight: bodyHeight,
-                ),
-                child: Container(
-                  margin: const EdgeInsets.only(top: 135.0),
-                  padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25.0),
-                      topRight: Radius.circular(25.0),
+    return FutureBuilder(
+      future: this.getData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Container(
+            color: Colors.grey.shade100,
+            height: bodyHeight / 2,
+            width: screen.width,
+            child: Loading(),
+          );
+        }
+
+        List abilities = snapshot.data['abilities'];
+        Map sprites = snapshot.data['sprites'];
+        List stats = snapshot.data['stats'];
+        List types = (snapshot.data['types']);
+        String mainType = types[types.length - 1]['type']['name'];
+        Color mainColor = Constants.kTypeColorConverter[mainType];
+        return Scaffold(
+          backgroundColor: mainColor,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+          ),
+          body: SafeArea(
+            bottom: false,
+            child: SingleChildScrollView(
+              controller: this._scrollController,
+              child: Stack(
+                children: <Widget>[
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: bodyHeight,
                     ),
-                  ),
-                  child: FutureBuilder(
-                    future: this.getData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return SizedBox(
-                          height: bodyHeight / 2,
-                          width: screen.width,
-                          child: Loading(),
-                        );
-                      }
-
-                      List abilities = snapshot.data['abilities'];
-                      Map sprites = snapshot.data['sprites'];
-                      List stats = snapshot.data['stats'];
-                      List types = snapshot.data['types'];
-
-                      return Column(
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 135.0),
+                      padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25.0),
+                          topRight: Radius.circular(25.0),
+                        ),
+                      ),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           Text(
@@ -162,14 +167,16 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           SizedBox(height: 10.0),
                           Container(
                             child: Column(
-                              children: this.buildStats(stats),
+                              children: this.buildStats(stats, mainColor),
                             ),
                           ),
                           SizedBox(height: 10.0),
                           Text(
                             'Abilities',
                             textAlign: TextAlign.center,
-                            style: Constants.kDetailsSectionTextStyle,
+                            style: Constants.kDetailsSectionTextStyle.copyWith(
+                              color: mainColor,
+                            ),
                           ),
                           SizedBox(height: 10.0),
                           SizedBox(
@@ -185,11 +192,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                                 (index) {
                                   return Container(
                                     margin: const EdgeInsets.fromLTRB(
-                                      10.0,
-                                      5.0,
-                                      10.0,
-                                      5.0,
-                                    ),
+                                        10.0, 5.0, 10.0, 5.0),
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade100,
                                       borderRadius: BorderRadius.circular(5.0),
@@ -212,7 +215,9 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           Text(
                             'Sprites',
                             textAlign: TextAlign.center,
-                            style: Constants.kDetailsSectionTextStyle,
+                            style: Constants.kDetailsSectionTextStyle.copyWith(
+                              color: mainColor,
+                            ),
                           ),
                           SizedBox(
                             height: 170.0,
@@ -241,30 +246,30 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                             ),
                           ),
                         ],
-                      );
-                    },
-                  ),
-                ),
-              ),
-              Positioned(
-                top: -20,
-                left: screen.width * 0.10,
-                child: Hero(
-                  tag: 'imageHero${this._id}',
-                  child: Container(
-                    width: screen.width * 0.8,
-                    height: 220.0,
-                    child: Image.network(
-                      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this._id}.png',
-                      fit: BoxFit.fitHeight,
+                      ),
                     ),
                   ),
-                ),
+                  Positioned(
+                    top: -20,
+                    left: screen.width * 0.10,
+                    child: Hero(
+                      tag: 'imageHero${this._id}',
+                      child: Container(
+                        width: screen.width * 0.8,
+                        height: 220.0,
+                        child: Image.network(
+                          'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this._id}.png',
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
