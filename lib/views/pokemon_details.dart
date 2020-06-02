@@ -65,35 +65,32 @@ class _PokemonDetailsState extends State<PokemonDetails> {
           controller: this._scrollController,
           child: Stack(
             children: <Widget>[
-              FutureBuilder(
-                future: this.getData(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SizedBox(
-                      height: screen.height,
-                      width: screen.width,
-                      child: Loading(),
-                    );
-                  }
+              Container(
+                margin: const EdgeInsets.only(top: 135.0),
+                height: bodyHeight,
+                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: FutureBuilder(
+                  future: this.getData(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return SizedBox(
+                        height: screen.height,
+                        width: screen.width,
+                        child: Loading(),
+                      );
+                    }
 
-                  ///
-                  print(snapshot);
-                  List abilities = snapshot.data['abilities'];
-                  Map sprites = snapshot.data['sprites'];
+                    List abilities = snapshot.data['abilities'];
+                    Map sprites = snapshot.data['sprites'];
 
-                  ///
-                  return Container(
-                    margin: const EdgeInsets.only(top: 135.0),
-                    height: bodyHeight,
-                    padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Column(
+                    return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: <Widget>[
                         Text(
@@ -114,6 +111,157 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                               height: 40.0,
                             ),
                           ],
+                        ),
+                        SizedBox(height: 10.0),
+                        Container(
+                          child: Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'HP',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'ATK',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'DEF',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'SPA',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'SDE',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Text(
+                                    'SPE',
+                                    style: Constants.kStatusTitleTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Text(
+                                    '000',
+                                    style: Constants.kStatusNumberTextStyle,
+                                  ),
+                                  SizedBox(width: 5.0),
+                                  Container(
+                                    height: 10.0,
+                                    width: screen.width - 100.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 5.0),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 10.0),
                         Text(
@@ -168,6 +316,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           height: 170.0,
                           width: screen.width,
                           child: GridView(
+                            physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
                               Container(
                                 child: Image.network(
@@ -190,9 +339,9 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           ),
                         ),
                       ],
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
               Positioned(
                 top: -20,
