@@ -31,21 +31,21 @@ class CustomNavigationBar extends StatelessWidget {
           tabs: <Widget>[
             Tab(
               icon: SvgPicture.asset(
-                'icons/pokemon-icon.svg',
+                'assets/icons/pokemon-icon.svg',
                 color: (currentTab == 0) ? kBlack : kBlackOpacity,
               ),
               text: 'Pokemons',
             ),
             Tab(
               icon: SvgPicture.asset(
-                'icons/moves-icon.svg',
+                'assets/icons/moves-icon.svg',
                 color: (currentTab == 1) ? kBlack : kBlackOpacity,
               ),
               text: 'Moves',
             ),
             Tab(
               icon: SvgPicture.asset(
-                'icons/itens-icon.svg',
+                'assets/icons/itens-icon.svg',
                 color: (currentTab == 2) ? kBlack : kBlackOpacity,
               ),
               text: 'Items',
