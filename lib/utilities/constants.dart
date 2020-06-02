@@ -15,13 +15,33 @@ const kBlue = Color(0xFF559EDF);
 const kLightBlue = Color(0xFF69B9E3);
 
 /// Conversors
-const kStatusNameConversor = {
+const kStatusNameConverter = {
   'hp': 'hp',
   'attack': 'atk',
   'defense': 'def',
   'special-attack': 'sat',
   'special-defense': 'sde',
   'speed': 'spd',
+};
+const kTypeImageConverter = {
+  'grass': 'assets/tag-types/Grass@3x.png',
+  'poison': 'assets/tag-types/Poison@3x.png',
+  'water': 'assets/tag-types/Water@3x.png',
+  'normal': 'assets/tag-types/Normal@3x.png',
+  'bug': 'assets/tag-types/Bug@3x.png',
+  'dark': 'assets/tag-types/Dark@3x.png',
+  'dragon': 'assets/tag-types/Dragon@3x.png',
+  'electric': 'assets/tag-types/Electric@3x.png',
+  'fairy': 'assets/tag-types/Fairy@3x.png',
+  'fight': 'assets/tag-types/Fight@3x.png',
+  'fire': 'assets/tag-types/Fire@3x.png',
+  'flying': 'assets/tag-types/Flying@3x.png',
+  'ghost': 'assets/tag-types/Ghost@3x.png',
+  'ground': 'assets/tag-types/Ground@3x.png',
+  'ice': 'assets/tag-types/Ice@3x.png',
+  'psychic': 'assets/tag-types/Psychic@3x.png',
+  'rock': 'assets/tag-types/Rock@3x.png',
+  'steel': 'assets/tag-types/Steel@3x.png',
 };
 
 /// TextStyle

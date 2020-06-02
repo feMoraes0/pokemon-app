@@ -49,6 +49,21 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     super.dispose();
   }
 
+  List<Image> buildTypes(List types) {
+    List<Image> response = [];
+
+    types.reversed.forEach((type) {
+      response.add(
+        Image.asset(
+          Constants.kTypeImageConverter[type['type']['name']],
+          height: 40.0,
+        ),
+      );
+    });
+
+    return response;
+  }
+
   List<Row> buildStats(List stats) {
     List<Row> response = [];
 
@@ -59,7 +74,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
-              Constants.kStatusNameConversor[stat['stat']['name']]
+              Constants.kStatusNameConverter[stat['stat']['name']]
                   .toUpperCase(),
               style: Constants.kStatusTitleTextStyle,
             ),
@@ -97,138 +112,138 @@ class _PokemonDetailsState extends State<PokemonDetails> {
           controller: this._scrollController,
           child: Stack(
             children: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(top: 135.0),
-                height: bodyHeight,
-                padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
+              ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: bodyHeight,
                 ),
-                child: FutureBuilder(
-                  future: this.getData(),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return SizedBox(
-                        height: screen.height,
-                        width: screen.width,
-                        child: Loading(),
-                      );
-                    }
-
-                    List abilities = snapshot.data['abilities'];
-                    Map sprites = snapshot.data['sprites'];
-                    List stats = snapshot.data['stats'];
-
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        Text(
-                          '${this._name}'.camelCase(),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 40.0,
-                            fontWeight: FontWeight.normal,
-                            color: Constants.kDarkGrey,
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Image.asset(
-                              'assets/tag-types/Water@3x.png',
-                              height: 40.0,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10.0),
-                        Container(
-                          child: Column(
-                            children: this.buildStats(stats),
-                          ),
-                        ),
-                        SizedBox(height: 10.0),
-                        Text(
-                          'Abilities',
-                          textAlign: TextAlign.center,
-                          style: Constants.kDetailsSectionTextStyle,
-                        ),
-                        SizedBox(height: 10.0),
-                        SizedBox(
-                          height: 50.0 * (abilities.length / 2).round(),
+                child: Container(
+                  margin: const EdgeInsets.only(top: 135.0),
+                  padding: const EdgeInsets.fromLTRB(20.0, 40.0, 20.0, 0.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25.0),
+                      topRight: Radius.circular(25.0),
+                    ),
+                  ),
+                  child: FutureBuilder(
+                    future: this.getData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox(
+                          height: bodyHeight / 2,
                           width: screen.width,
-                          child: GridView.count(
-                            physics: NeverScrollableScrollPhysics(),
-                            childAspectRatio:
-                                ((screen.width - 40.0) / 2) / 50.0,
-                            crossAxisCount: 2,
-                            children: List.generate(
-                              abilities.length,
-                              (index) {
-                                return Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                    10.0,
-                                    5.0,
-                                    10.0,
-                                    5.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '${abilities[index]['ability']['name']}'
-                                          .camelCase(),
-                                      style: TextStyle(
-                                        fontSize: 16.0,
+                          child: Loading(),
+                        );
+                      }
+
+                      List abilities = snapshot.data['abilities'];
+                      Map sprites = snapshot.data['sprites'];
+                      List stats = snapshot.data['stats'];
+                      List types = snapshot.data['types'];
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: <Widget>[
+                          Text(
+                            '${this._name}'.camelCase(),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 40.0,
+                              fontWeight: FontWeight.normal,
+                              color: Constants.kDarkGrey,
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: this.buildTypes(types),
+                          ),
+                          SizedBox(height: 10.0),
+                          Container(
+                            child: Column(
+                              children: this.buildStats(stats),
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(
+                            'Abilities',
+                            textAlign: TextAlign.center,
+                            style: Constants.kDetailsSectionTextStyle,
+                          ),
+                          SizedBox(height: 10.0),
+                          SizedBox(
+                            height: 50.0 * (abilities.length / 2).round(),
+                            width: screen.width,
+                            child: GridView.count(
+                              physics: NeverScrollableScrollPhysics(),
+                              childAspectRatio:
+                                  ((screen.width - 40.0) / 2) / 50.0,
+                              crossAxisCount: 2,
+                              children: List.generate(
+                                abilities.length,
+                                (index) {
+                                  return Container(
+                                    margin: const EdgeInsets.fromLTRB(
+                                      10.0,
+                                      5.0,
+                                      10.0,
+                                      5.0,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        '${abilities[index]['ability']['name']}'
+                                            .camelCase(),
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                        ),
                                       ),
                                     ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 10.0),
+                          Text(
+                            'Sprites',
+                            textAlign: TextAlign.center,
+                            style: Constants.kDetailsSectionTextStyle,
+                          ),
+                          SizedBox(
+                            height: 170.0,
+                            width: screen.width,
+                            child: GridView(
+                              physics: NeverScrollableScrollPhysics(),
+                              children: <Widget>[
+                                Container(
+                                  child: Image.network(
+                                    sprites['front_default'],
+                                    fit: BoxFit.contain,
                                   ),
-                                );
-                              },
+                                ),
+                                Container(
+                                  child: Image.network(
+                                    sprites['front_shiny'],
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ],
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10.0,
+                              ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 10.0),
-                        Text(
-                          'Sprites',
-                          textAlign: TextAlign.center,
-                          style: Constants.kDetailsSectionTextStyle,
-                        ),
-                        SizedBox(
-                          height: 170.0,
-                          width: screen.width,
-                          child: GridView(
-                            physics: NeverScrollableScrollPhysics(),
-                            children: <Widget>[
-                              Container(
-                                child: Image.network(
-                                  sprites['front_default'],
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Container(
-                                child: Image.network(
-                                  sprites['front_shiny'],
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                            ],
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
-                  },
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
               Positioned(
