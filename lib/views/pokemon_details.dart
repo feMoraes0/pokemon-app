@@ -49,7 +49,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     super.dispose();
   }
 
-  List<Row> biuldStats(List stats) {
+  List<Row> buildStats(List stats) {
     List<Row> response = [];
 
     stats.reversed.forEach((stat) {
@@ -148,7 +148,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                         SizedBox(height: 10.0),
                         Container(
                           child: Column(
-                            children: this.biuldStats(stats),
+                            children: this.buildStats(stats),
                           ),
                         ),
                         SizedBox(height: 10.0),
