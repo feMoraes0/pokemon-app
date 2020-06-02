@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pokemon_app/components/chart_bar.dart';
 import 'package:pokemon_app/components/loading.dart';
 import 'package:pokemon_app/services/network_helper.dart';
 import 'package:pokemon_app/utilities/string_extension.dart';
+import 'package:pokemon_app/utilities/int_extension.dart';
 import 'package:pokemon_app/utilities/constants.dart' as Constants;
 
 class PokemonDetails extends StatefulWidget {
@@ -47,6 +49,36 @@ class _PokemonDetailsState extends State<PokemonDetails> {
     super.dispose();
   }
 
+  List<Row> biuldStats(List stats) {
+    List<Row> response = [];
+
+    stats.reversed.forEach((stat) {
+      int baseStat = stat['base_stat'];
+      response.add(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Text(
+              Constants.kStatusNameConversor[stat['stat']['name']]
+                  .toUpperCase(),
+              style: Constants.kStatusTitleTextStyle,
+            ),
+            SizedBox(width: 5.0),
+            Text(
+              baseStat.toStringWithDigits(3),
+              style: Constants.kStatusNumberTextStyle,
+            ),
+            SizedBox(width: 5.0),
+            ChartBar(
+              baseStats: stat['base_stat'],
+            ),
+          ],
+        ),
+      );
+    });
+    return response;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size screen = MediaQuery.of(context).size;
@@ -89,6 +121,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
 
                     List abilities = snapshot.data['abilities'];
                     Map sprites = snapshot.data['sprites'];
+                    List stats = snapshot.data['stats'];
 
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -115,152 +148,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                         SizedBox(height: 10.0),
                         Container(
                           child: Column(
-                            children: <Widget>[
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'HP',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'ATK',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'DEF',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'SPA',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'SDE',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'SPE',
-                                    style: Constants.kStatusTitleTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '000',
-                                    style: Constants.kStatusNumberTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    height: 10.0,
-                                    width: screen.width - 100.0,
-                                    decoration: BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius: BorderRadius.circular(50.0),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              SizedBox(height: 5.0),
-                            ],
+                            children: this.biuldStats(stats),
                           ),
                         ),
                         SizedBox(height: 10.0),
