@@ -35,7 +35,7 @@ class _PokemonDetailsState extends State<PokemonDetails> {
 
   Future<Map> getData() async {
     NetWorkHelper netWorkHelper = NetWorkHelper(
-      url: '${Constants.kPokemonImageURL}${this._id}.png',
+      url: '${Constants.kUniquePokemonURL}${this._id}',
     );
     dynamic response = await netWorkHelper.getData();
     return response;
@@ -69,9 +69,14 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                 future: this.getData(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Loading();
+                    return SizedBox(
+                      height: screen.height,
+                      width: screen.width,
+                      child: Loading(),
+                    );
                   }
-                  print(snapshot.data);
+                  print(snapshot);
+                  List abilities = snapshot.data['abilities'];
                   return Container(
                     margin: const EdgeInsets.only(top: 135.0),
                     height: bodyHeight,
@@ -114,7 +119,44 @@ class _PokemonDetailsState extends State<PokemonDetails> {
                           textAlign: TextAlign.start,
                           style: Constants.kDetailsSectionTextStyle,
                         ),
-
+                        SizedBox(height: 10.0),
+                        SizedBox(
+                          height: 50.0 * (abilities.length / 2).round(),
+                          width: screen.width,
+                          child: GridView.count(
+                            physics: NeverScrollableScrollPhysics(),
+                            childAspectRatio:
+                                ((screen.width - 40.0) / 2) / 50.0,
+                            crossAxisCount: 2,
+                            children: List.generate(
+                              abilities.length,
+                              (index) {
+                                return Container(
+                                  margin: const EdgeInsets.fromLTRB(
+                                    10.0,
+                                    5.0,
+                                    10.0,
+                                    5.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      '${abilities[index]['ability']['name']}'
+                                          .camelCase(),
+                                      style: TextStyle(
+                                        fontSize: 16.0,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 10.0),
                         Text(
                           'Sprites',
                           textAlign: TextAlign.start,

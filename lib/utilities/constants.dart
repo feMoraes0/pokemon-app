@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 /// URLs
 const kPokemonImageURL = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/';
+const kUniquePokemonURL = 'https://pokeapi.co/api/v2/pokemon/';
 
 /// Colors
 const kDarkGrey = Color(0xFF4F4F4F);
