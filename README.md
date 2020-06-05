@@ -5,10 +5,11 @@
 </p>
 
 ## Knowledges
-:rocket: Packages;
-:rocket: API connection using http package;
-:rocket: App icon, adapted for all shapes on Android;
-:rocket: Animations;
+
+<p>:rocket: Packages;</p>
+<p>:rocket: API connection using http package;</p>
+<p>:rocket: App icon, adapted for all shapes on Android;</p>
+<p>:rocket: Animations;</p>
 
 ## How to use
 
