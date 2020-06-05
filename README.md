@@ -1,16 +1,36 @@
-# pokemon_app
+<h1 align="center">Pokemon App</h1>
 
-A new Flutter project.
+<p align="center">
+  <img width="200" src="https://raw.githubusercontent.com/feMoraes0/project-prints/master/pokemon-app/gif_pokemon.gif"/>
+</p>
 
-## Getting Started
+## Knowledges
+:rocket: Packages;
+:rocket: API connection using http package;
+:rocket: App icon, adapted for all shapes on Android;
+:rocket: Animations;
 
-This project is a starting point for a Flutter application.
+## How to use
 
-A few resources to get you started if this is your first Flutter project:
+To clone and run this application, you'll need [Git](https://git-scm.com/downloads) and [Flutter](https://flutter.dev/docs/get-started/install) installed on your computer. From your command line:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+```
+# Clone this repository
+$ git clone https://github.com/feMoraes0/pokemon-app.git
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Go into the repository
+$ cd pokemon-app
+
+# Install dependencies
+$ flutter packages get
+
+# Run the app
+$ flutter run
+```
+
+## Credits
+[Daniel Motta](https://dribbble.com/shots/4862523-Pokedex-iOS-app-Squirtle)
+
+## Contact
+  - <a target="_blank" href="https://www.linkedin.com/in/fernando-moraes-48a26916a/">LinkedIn</a>
+  - <a target="_blank" href="mailto:fernandomoraes.lopes@gmail.com">E-mail</a>
